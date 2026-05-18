@@ -1,6 +1,17 @@
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+function resumeDownloadFilename() {
+  const d = new Date();
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = d.toLocaleString("en-US", { month: "short" });
+  return `Aditya-Koundinya-resume-${day}-${month}.pdf`;
+}
+
+document.querySelectorAll("[data-resume-download]").forEach((link) => {
+  link.setAttribute("download", resumeDownloadFilename());
+});
+
 const html = document.documentElement;
 const themeToggle = document.getElementById("theme-toggle");
 
