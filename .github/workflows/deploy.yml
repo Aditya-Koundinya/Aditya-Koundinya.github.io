@@ -1,5 +1,5 @@
-# Builds with Vite and publishes ./dist to the gh-pages branch.
-# In repo Settings → Pages: Source = "Deploy from a branch", Branch = gh-pages, Folder = / (root)
+# Builds with Vite → publishes to gh-pages (recommended Pages branch).
+# Also copies profile/resume to repo root on main so assets work if Pages still uses main.
 
 name: Deploy to GitHub Pages
 
@@ -29,9 +29,20 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Publish dist to gh-pages branch
+      - name: Publish built site to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
+
+      - name: Copy resume and photo to repo root (main branch Pages fallback)
+        run: cp public/profile.png public/resume.pdf .
+
+      - name: Commit root assets to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add profile.png resume.pdf
+          git diff --staged --quiet || git commit -m "chore: sync profile and resume to site root"
+          git push
