@@ -32,7 +32,9 @@ npm run preview
 - `index.html` — single-page layout
 - `src/styles.css` — design system, light/dark themes
 - `src/main.js` — nav, theme toggle, scroll reveals
-- `public/assets/` — static files served on the site:
+- `public/` — static files copied to site root on build:
   - `profile.png` — hero photo
   - `resume.pdf` — downloadable resume
   - `consultant-profile.pdf` — consultant profile (reference copy, not linked on site)
+
+**Important:** In repo **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from branch”). The live site must serve the Vite `dist/` build, not raw `index.html` from the repo root.
