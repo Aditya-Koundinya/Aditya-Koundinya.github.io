@@ -37,4 +37,10 @@ npm run preview
   - `resume.pdf` — downloadable resume
   - `consultant-profile.pdf` — consultant profile (reference copy, not linked on site)
 
-**Important:** In repo **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from branch”). The live site must serve the Vite `dist/` build, not raw `index.html` from the repo root.
+**Important — GitHub Pages setup (one time):**
+
+1. **Settings → Pages → Build and deployment**
+2. **Source:** Deploy from a branch
+3. **Branch:** `gh-pages` · **Folder:** `/ (root)`
+
+The workflow builds with Vite and pushes the output to the `gh-pages` branch. Do **not** use `main` as the Pages branch — that serves source files and breaks the photo/resume.
